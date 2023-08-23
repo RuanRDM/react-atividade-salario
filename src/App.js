@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import TelaInicial from './components/TelaInicial';
+import TelaHorasSalario from './components/TelaHorasSalario';
+import TelaResultado from './components/TelaResultado';
+import AppContext from './AppContext';
 
 function App() {
+  const [nome, setNome] = useState('');
+  const [telefone, setTelefone] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider
+      value={{
+        nome,
+        setNome,
+        telefone,
+        setTelefone,
+      }}
+    >
+      <Router>
+        <Route path="/" exact component={TelaInicial} />
+        <Route path="/horas-salario" component={TelaHorasSalario} />
+        <Route path="/resultado" component={TelaResultado} />
+      </Router>
+    </AppContext.Provider>
   );
 }
 
