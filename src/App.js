@@ -1,13 +1,35 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import TelaInicial from './components/TelaInicial';
 import TelaHorasSalario from './components/TelaHorasSalario';
 import TelaResultado from './components/TelaResultado';
 import AppContext from './AppContext';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    children: [
+      {
+        index: true,
+        element: <TelaInicial/>
+      },
+      {
+        path: '/horas-salario',
+        element: <TelaHorasSalario />,
+      },
+      {
+        path: '/resultado',
+        element: <TelaResultado />,
+      },
+    ],
+  },
+]);
+
 function App() {
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [valorHora, setValorHora] = useState('');
+  const [horasSemana, setHorasSemana] = useState('');
 
   return (
     <AppContext.Provider
@@ -16,13 +38,13 @@ function App() {
         setNome,
         telefone,
         setTelefone,
+        valorHora,
+        setValorHora,
+        horasSemana,
+        setHorasSemana
       }}
     >
-      <Router>
-        <Route path="/" exact component={TelaInicial} />
-        <Route path="/horas-salario" component={TelaHorasSalario} />
-        <Route path="/resultado" component={TelaResultado} />
-      </Router>
+      <RouterProvider router={router} />
     </AppContext.Provider>
   );
 }

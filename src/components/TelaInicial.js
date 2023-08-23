@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Outlet } from "react-router-dom";
 
-function TelaInicial() {
+function TelaInicial () {
   return (
-    <div>
+    <div style={{ marginLeft: '10px' }}>
       <h2>Tela Inicial</h2>
-      <Link to="/horas-salario">Avançar</Link>
+      <NavLink exact="true" to="/horas-salario">Avançar</NavLink>
+      <Outlet />
     </div>
   );
 }
